@@ -1,0 +1,19 @@
+<h2>User info</h2>
+<table class="table">
+  <% if user %>
+    <tr><%= image_tag user.get_profile_image(100, 100) %></tr>
+    <tr>
+      <th>name</th>
+      <th><%= user.name %></th>
+    </tr>
+    <tr>
+      <th>introduction</th>
+      <th><%= user.introduction %></th>
+    </tr>
+  <% end %>
+</table>
+<div class="row">
+  <%= link_to edit_user_path(@user.id), class:"btn btn-secondary" do %>
+    <i class="fa-solid fa-gear"></i>
+  <% end %>
+</div>
