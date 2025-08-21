@@ -11,9 +11,11 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     if @book.save
       flash[:notice] = "Book was successfully created."
-      redirect_to book_path(@book.id)
+      redirect_to book_path(@book)
     else
       @books = Book.all
+      @user = current_user
+      flash.now[:alert] = @book.errors.full_messages.join(",")
       render :index
     end
   end
@@ -36,8 +38,15 @@ class BooksController < ApplicationController
       flash[:notice] = "Book was successfully updated."
       redirect_to book_path(@book.id)
     else 
+      puts @book.errors.full_messages
       render :edit
     end
+  end
+
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
   end
 
   private
